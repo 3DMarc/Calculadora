@@ -1,7 +1,6 @@
 import utils as ut
 
-
-# Loop principal
+# # Loop principal
 while True:
     opcao = ut.menu()
 

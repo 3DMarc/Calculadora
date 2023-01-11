@@ -57,6 +57,7 @@ def soma():
 
     total = num1 + num2
     resultado_total = total
+    utilizar_total = False
     print()
     print(f'O resultado da soma é {total}')
     print()
@@ -79,6 +80,7 @@ def subtracao():
 
     total = num1 - num2
     resultado_total = total
+    utilizar_total = False
     print()
     print(f'O resultado da subtração é {total}')
     print()
@@ -102,6 +104,7 @@ def multiplicacao():
 
     total = num1 * num2
     resultado_total = total
+    utilizar_total = False
     print()
     print(f'O resultado da multiplicação é {total}')
     print()
@@ -131,14 +134,27 @@ def divisao():
             if num2 == 'erro':
                 continue
         else:
-            total = round(num1 / num2, 2)
-            resultado_total = total
-            break
+            if num1 % num2 != 0:
+                total_inteiro = num1 // num2
+                sobra = num1 % num2
+                total_float = round(num1 / num2, 5)
+                resultado_total = total_float
+                utilizar_total = False
+                print()
+                print('O resultado da divisão é:')
+                print(f'{total_inteiro} com sobra {sobra} ou {total_float}')
+                print()
+                break
+            else:
+                total_float = round(num1 / num2, 5)
+                resultado_total = total_float
+                utilizar_total = False
+                print()
+                print(f'O resultado da divisão é {total_float}')
+                print()
+                break
 
-    print()
-    print(f'O resultado da divisão é {total}')
-    print()
-    return total
+    return total_float
 
 
 def porcentagem():
@@ -147,13 +163,30 @@ def porcentagem():
     print('Calcule quantos % o primeiro número é do segundo: ')
     print()
     global utilizar_total
-    num1 = input_numeros('Primeiro número: ')
+    if utilizar_total == False:
+        while True:
+            num1 = input_numeros('Primeiro número: ')
+            if num1 < 0:
+                erro('O primeiro número tem que ser positivo')
+                continue
+            break
+
+    else:
+        num1 = resultado_total
+        while True:
+            if num1 < 0:
+                erro(f'Não é possível reutilizar, pois {num1} é negativo ')
+                num1 = input_numeros('Primeiro número: ')
+                continue
+            else:
+                print(f'Primeiro número é {num1}')
+                break
     num2 = input_numeros('Segundo número: ')
 
     total = round((num1 * 100) / num2, 2)
-    utilizar_total = False
+    utilizar_total = True
     print()
-    print(f'O primeiro número é igual a {total}% de {num2}')
+    print(f'{num1} é igual a {total}% de {num2}')
     print()
     return total
 
@@ -183,7 +216,7 @@ def nova_op():
         resposta = input().lower()
         print()
         global utilizar_total
-        if resposta == 's' and utilizar_total == True:
+        if resposta == 's' and utilizar_total == False:
             while True:
                 print('Você deseja utilizar o Total anterior? (S) Sim ou (N) Não?')
                 resposta2 = input().lower()
