@@ -9,7 +9,7 @@ def linha_erro():
     print()
 
 
-def erro(msg='Aconteceu um Erro'):
+def erro(msg='Aconteceu um Error'):
     mensagem = msg
 
     linha_erro()
