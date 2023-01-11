@@ -42,12 +42,12 @@ def input_numeros(nome):
 
 
 def soma():
-    global resultado_total
-    global utilizar_total
     print()
     print('Você escolheu ***Somar***')
     print('Entre dois números para serem somados: ')
     print()
+    global resultado_total
+    global utilizar_total
     if utilizar_total == False:
         num1 = input_numeros('Primeiro número: ')
     else:
@@ -56,10 +56,10 @@ def soma():
     num2 = input_numeros('Segundo número: ')
 
     total = num1 + num2
+    resultado_total = total
     print()
     print(f'O resultado da soma é {total}')
     print()
-    resultado_total = total
     return total
 
 
@@ -68,10 +68,17 @@ def subtracao():
     print('Você escolheu ***Subtrair***')
     print('Entre dois números para serem subtraidos: ')
     print()
-
-    num1, num2 = input_numeros()
+    global resultado_total
+    global utilizar_total
+    if utilizar_total == False:
+        num1 = input_numeros('Primeiro número: ')
+    else:
+        num1 = resultado_total
+        print(f'Primeiro número é {num1}')
+    num2 = input_numeros('Segundo número: ')
 
     total = num1 - num2
+    resultado_total = total
     print()
     print(f'O resultado da subtração é {total}')
     print()
@@ -84,9 +91,17 @@ def multiplicacao():
     print('Entre dois números para serem multiplicados: ')
     print()
 
-    num1, num2 = input_numeros()
+    global resultado_total
+    global utilizar_total
+    if utilizar_total == False:
+        num1 = input_numeros('Primeiro número: ')
+    else:
+        num1 = resultado_total
+        print(f'Primeiro número é {num1}')
+    num2 = input_numeros('Segundo número: ')
 
     total = num1 * num2
+    resultado_total = total
     print()
     print(f'O resultado da multiplicação é {total}')
     print()
@@ -99,7 +114,14 @@ def divisao():
     print('Escolha o primeiro número para ser divido pelo segundo número escolhido: ')
     print()
 
-    num1, num2 = input_numeros()
+    global resultado_total
+    global utilizar_total
+    if utilizar_total == False:
+        num1 = input_numeros('Primeiro número: ')
+    else:
+        num1 = resultado_total
+        print(f'Primeiro número é {num1}')
+    num2 = input_numeros('Segundo número: ')
     while True:
         if num2 < 1:
             erro('O segundo número tem que ser maior que 0')
@@ -110,6 +132,7 @@ def divisao():
                 continue
         else:
             total = round(num1 / num2, 2)
+            resultado_total = total
             break
 
     print()
@@ -123,10 +146,12 @@ def porcentagem():
     print('Você escolheu ***Porcentagem***')
     print('Calcule quantos % o primeiro número é do segundo: ')
     print()
-
-    num1, num2 = input_numeros()
+    global utilizar_total
+    num1 = input_numeros('Primeiro número: ')
+    num2 = input_numeros('Segundo número: ')
 
     total = round((num1 * 100) / num2, 2)
+    utilizar_total = False
     print()
     print(f'O primeiro número é igual a {total}% de {num2}')
     print()
@@ -157,12 +182,12 @@ def nova_op():
         print('Você deseja realizar uma nova operação? (S) Sim ou (N) Não?')
         resposta = input().lower()
         print()
-        if resposta == 's':
+        global utilizar_total
+        if resposta == 's' and utilizar_total == True:
             while True:
                 print('Você deseja utilizar o Total anterior? (S) Sim ou (N) Não?')
                 resposta2 = input().lower()
                 if resposta2 == 's':
-                    global utilizar_total
                     utilizar_total = True
                     break
                 elif resposta2 == 'n':
@@ -170,6 +195,8 @@ def nova_op():
                     break
                 else:
                     erro('Entre um valor válido da próxima vez...')
+            break
+        elif resposta == 's':
             break
         elif resposta == 'n':
             print()
