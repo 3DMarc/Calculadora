@@ -29,10 +29,10 @@ def igual_float(a):
         return num1
 
 
-def input_numeros(nome):
-    input_nome = nome
+def input_numeros(msg='Escolha um número: '):
+    input_msg = msg
     while True:
-        num = input(input_nome)
+        num = input(input_msg)
         num = igual_float(num)
 
         if num == 'erro':
