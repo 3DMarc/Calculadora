@@ -5,7 +5,7 @@ Define funções utilitárias para realizar calculos e controle de erro
 
 def linha_erro():
     print()
-    print('*********** ERRO ***********')
+    print('*********** ERROR ***********')
     print()
 
 
