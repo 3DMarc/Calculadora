@@ -1,6 +1,8 @@
 """
 Define funções utilitárias para realizar calculos e controle de erro
 """
+resultado_total = 0
+utilizar_total = False
 
 
 def linha_erro():
@@ -27,37 +29,38 @@ def igual_float(a):
         return num1
 
 
-def input_numeros():
+def input_numeros(nome):
+    input_nome = nome
     while True:
-        num1 = input('Primeiro número: ')
-        num1 = igual_float(num1)
+        num = input(input_nome)
+        num = igual_float(num)
 
-        if num1 == 'erro':
+        if num == 'erro':
             continue
         break
-
-    while True:
-        num2 = input('Segundo número: ')
-        num2 = igual_float(num2)
-
-        if num2 == 'erro':
-            continue
-        break
-    return num1, num2
+    return num
 
 
 def soma():
+    global resultado_total
+    global utilizar_total
     print()
     print('Você escolheu ***Somar***')
     print('Entre dois números para serem somados: ')
     print()
-
-    num1, num2 = input_numeros()
+    if utilizar_total == False:
+        num1 = input_numeros('Primeiro número: ')
+    else:
+        num1 = resultado_total
+        print(f'Primeiro número é {num1}')
+    num2 = input_numeros('Segundo número: ')
 
     total = num1 + num2
     print()
     print(f'O resultado da soma é {total}')
     print()
+    resultado_total = total
+    return total
 
 
 def subtracao():
@@ -72,6 +75,7 @@ def subtracao():
     print()
     print(f'O resultado da subtração é {total}')
     print()
+    return total
 
 
 def multiplicacao():
@@ -86,6 +90,7 @@ def multiplicacao():
     print()
     print(f'O resultado da multiplicação é {total}')
     print()
+    return total
 
 
 def divisao():
@@ -110,7 +115,7 @@ def divisao():
     print()
     print(f'O resultado da divisão é {total}')
     print()
-    return
+    return total
 
 
 def porcentagem():
@@ -125,4 +130,52 @@ def porcentagem():
     print()
     print(f'O primeiro número é igual a {total}% de {num2}')
     print()
+    return total
+
+
+def menu():
+    # Menu
+    print('*****************************************')
+    print('Selecione a operação que deseja realizar')
+    print('*****************************************', '\n')
+    print('-------------------')
+    print('(1) Soma')
+    print('(2) Subtração')
+    print('(3) Multiplicação')
+    print('(4) Divisão')
+    print('(5) Porcentagem')
+    print('(Q) Sair')
+    print('-------------------', '\n')
+    print('Para selecionar, por favor digite o número ou letra correspondente')
+    opcao = input().lower()
+    return opcao
+
+
+def nova_op():
+    # Checar se quer repetir a operação
+    while True:
+        print('Você deseja realizar uma nova operação? (S) Sim ou (N) Não?')
+        resposta = input().lower()
+        print()
+        if resposta == 's':
+            while True:
+                print('Você deseja utilizar o Total anterior? (S) Sim ou (N) Não?')
+                resposta2 = input().lower()
+                if resposta2 == 's':
+                    global utilizar_total
+                    utilizar_total = True
+                    break
+                elif resposta2 == 'n':
+                    utilizar_total = False
+                    break
+                else:
+                    erro('Entre um valor válido da próxima vez...')
+            break
+        elif resposta == 'n':
+            print()
+            print('Até a próxima...')
+            quit()
+        else:
+            erro('Entre um valor válido da próxima vez...')
+            continue
     return
