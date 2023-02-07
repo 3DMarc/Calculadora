@@ -1,7 +1,9 @@
 import utils as ut
+import os
 
 # # Loop principal
 while True:
+    os.system('cls')
     opcao = ut.menu()
 
     if opcao == 'q':
